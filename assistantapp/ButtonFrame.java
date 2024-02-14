@@ -8,14 +8,17 @@ public class ButtonFrame extends JFrame implements ActionListener{
 		JButton button;
 	
 		ButtonFrame(){
-			button = new JButton();
-			button.setBounds(200, 100, 100, 50);
 			
-			this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-			this.setLayout(null);
-			this.setSize(100, 100);
-			this.setVisible(true);
-			this.add(button);
+			button = new JButton(); 
+			button.setBounds(200, 100, 100, 50); // gives it some size
+			
+			button.addActionListener(this); // yeah i'm him
+			
+			this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // the X button works
+			//this.setLayout(null);
+			this.setSize(500, 700); // gives the FRAme some size
+			this.setVisible(true); // makes the frame visible
+			this.add(button); // adds button to the frame
 	}
 
 		@Override
