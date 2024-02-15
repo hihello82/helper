@@ -21,9 +21,11 @@ public class Chance {
 	
 	Chance(String command){
 		HashMap<String, Double> map = calcChance(breakUp(command));
-		System.out.println(map.get("weather"));
-		System.out.println(map.get("calc"));
-		System.out.println(map.get("time"));
+		
+		if(map.get("weather") >= 1.04) {
+			
+		}
+
 	}
 	
 	ArrayList<String> breakUp(String command) {
