@@ -1,6 +1,9 @@
 package assistantapp;
 
+import java.io.IOException;
 import java.util.*;
+
+import assistantapp.apps.AIApp;
 
 public class Chance {
 	
@@ -23,9 +26,14 @@ public class Chance {
 	
 	Chance(String command){
 		HashMap<String, Double> map = calcChance(breakUp(command));
-		
+		System.out.println(map.get("weather"));
+		System.out.println(map.get("calc"));
+		System.out.println(map.get("time"));
+
 		if(map.get("weather") >= 1.04) {
 			
+		} else {
+			System.out.println(AIApp.Chat(command));
 		}
 
 	}
