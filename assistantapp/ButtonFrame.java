@@ -9,6 +9,8 @@ public class ButtonFrame extends JFrame implements ActionListener{
 		JTextField textField;
 		JTextField displayTextField;
 		
+		String command = "";
+		
 		Color borderColorLight = new Color(0, 0, 0);
 		Color borderColorDark = new Color(255, 255, 255);
 		
@@ -41,6 +43,7 @@ public class ButtonFrame extends JFrame implements ActionListener{
 			
 			displayTextField = new RoundTextField(15);
 			displayTextField.setBounds(50, 25, 400, 555);
+			displayTextField.enable(false);
 			
 			// APPERANCE SETTINGS (there's prolly a way to optimise this but im lazy)
 			
@@ -66,9 +69,11 @@ public class ButtonFrame extends JFrame implements ActionListener{
 	}
 
 		@Override
-		public void actionPerformed(ActionEvent e) {
+		public void actionPerformed(ActionEvent e) { // TODO: enter = buttonclicked
 			if(e.getSource()==button) {
-				System.out.println("clicked");
+				command = textField.getText();
+				textField.setText("");
+				Chance calc = new Chance(command);
 			}			
 		}
 }
