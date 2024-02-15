@@ -7,6 +7,7 @@ public class ButtonFrame extends JFrame implements ActionListener{
 	
 		JButton button;
 		JTextField textField;
+		JTextField displayTextField;
 	
 		ButtonFrame(){
 			
@@ -28,8 +29,17 @@ public class ButtonFrame extends JFrame implements ActionListener{
 			 *  button.addActionListener(e -> System.out.println("clicked");
 			 */
 			
+			// USER INPUT
 			textField = new RoundTextField(15);
 			textField.setBounds(50, 605, 350, 40);
+			
+			displayTextField = new RoundTextField(15);
+			displayTextField.setBounds(50, 25, 400, 555);
+			
+			//APPEARANCE
+			
+			textField.setBorder(BorderFactory.createLineBorder(Color.black));
+			displayTextField.setBorder(BorderFactory.createLineBorder(Color.black)); // APPEARANCE
 			
 			this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // the X button works
 			//this.setLayout(null);
@@ -37,7 +47,8 @@ public class ButtonFrame extends JFrame implements ActionListener{
 			this.setSize(500, 700); // gives the FRAme some size
 			this.setVisible(true); // makes the frame visible
 			this.add(button); // adds button to the frame
-			this.add(textField);
+			this.add(textField); // adds user input textfield to frame
+			this.add(displayTextField); // adds the responsedisplay to frame
 	}
 
 		@Override
