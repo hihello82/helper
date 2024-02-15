@@ -8,10 +8,11 @@ public class Main extends JFrame implements ActionListener{
 
 	JTextField textField = new JTextField(20);
 	JButton button = new JButton();
+	public static boolean lightMode = true;
 	
 	public static void main(String[] args) {
 			
-		ButtonFrame frame = new ButtonFrame(); 
+		ButtonFrame frame = new ButtonFrame(lightMode); 
 		// this implements the other class in your project NOT some random shit dumbass
 		// by calling this it makes a frame according to the frame i made in the other class 
 		
