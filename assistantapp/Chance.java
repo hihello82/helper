@@ -15,6 +15,8 @@ public class Chance {
 	 * calculator
 	 * time
 	 * other -> AI
+	 * 		image generation
+	 * 		text generation
 	 * 
 	 * 100% threshold -> 1.04 
 	 */
