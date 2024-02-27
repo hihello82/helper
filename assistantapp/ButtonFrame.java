@@ -11,14 +11,8 @@ public class ButtonFrame extends JFrame implements ActionListener{
 		Container c = this.getContentPane();		
 		
 		String command = "";
-		
-		Color borderColorLight = new Color(0, 0, 0);
-		Color borderColorDark = new Color(255, 255, 255);
-		
-		Color backgroundColorLight = new Color(238, 238, 238);
-		Color backgroundColorDark = new Color(17, 17, 17);
 	
-		ButtonFrame(boolean lightMode){
+		ButtonFrame(){
 		
 			button = new JButton(); 
 			
@@ -32,14 +26,6 @@ public class ButtonFrame extends JFrame implements ActionListener{
 			
 			button.addActionListener(this); // yeah i'm him
 			
-			/*  ALTERNATE:
-			 *  
-			 *  button.addActionListener(e -> (action));
-			 *  button.addActionListener(e -> System.out.println("clicked");
-			 */
-			
-			// USER INPUT
-			
 			c.setLayout(null);
 
 			
@@ -51,19 +37,6 @@ public class ButtonFrame extends JFrame implements ActionListener{
 			displayTextField.setBounds(50, 25, 400, 225);
 			displayTextField.enable(false);
 			
-			// APPERANCE SETTINGS (there's prolly a way to optimise this but im lazy)
-			
-			if(!lightMode) {
-				textField.setBorder(BorderFactory.createLineBorder(borderColorDark));
-				displayTextField.setBorder(BorderFactory.createLineBorder(borderColorDark));
-				this.setBackground(backgroundColorDark);
-				System.out.println("dark mode");
-			} else {
-				textField.setBorder(BorderFactory.createLineBorder(borderColorLight));
-				displayTextField.setBorder(BorderFactory.createLineBorder(borderColorLight));
-				this.setBackground(backgroundColorLight);
-			}
-			
 			this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // the X button works
 			//this.setLayout(null);
 			this.setResizable(false);
@@ -71,6 +44,7 @@ public class ButtonFrame extends JFrame implements ActionListener{
 			this.setVisible(true); // makes the frame visible
 			this.add(button); // adds button to the frame
 			this.add(textField); // adds user input textfield to frame
+			this.add(c);
 			c.add(displayTextField); // adds the responsedisplay to frame
 
 	}
