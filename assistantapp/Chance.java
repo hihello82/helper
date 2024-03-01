@@ -8,7 +8,6 @@ import assistantapp.apps.AIApp;
 public class Chance {
 	
 	static String[] WeatherKeys = new String[] {"weather", "cold", "hot"};
-	static String[] CalcKeys = new String[] {"+", "-", "x", "divide", "multipl", "times", "plus", "minus", "/", "^", "power"};
 	static String[] TimeKeys = new String[] {"time"};
 	static String[] MiscKeys2 = new String[] {"what", "is", "in", "the"}; 
 	static String[] MiscKeys = new String[] {"town", "cit", "what", "in", "the", "is"};
@@ -27,19 +26,21 @@ public class Chance {
 	
 	public static String calcChance(String command){
 		HashMap<String, Double> map = calcChance(breakUp(command));
-		System.out.println(map.get("weather"));
-		System.out.println(map.get("calc"));
-		System.out.println(map.get("time"));
 
-		if(map.get("calc") >= 1.04) {
-			ButtonFrame.displayResponse("you're probably doing a calculation");
-		} else if (map.get("weather") >= 1.04) {
+		if (map.get("weather") >= 1.04) {
 			ButtonFrame.displayResponse("you're probably trying to get the weather");
+			ButtonFrame.processing = false;
 		} else if (map.get("time") >= 1.04) {
 			ButtonFrame.displayResponse("you're probably trying to get the time");
+			ButtonFrame.processing = false;
 		} else {
-			System.out.println(AIApp.Chat(command));
-			ButtonFrame.displayResponse(AIApp.Chat(command));
+			try {
+				ButtonFrame.displayResponse(AIApp.chatGPT(command));
+				ButtonFrame.processing = false;
+			} catch (IOException e){
+				ButtonFrame.displayResponse("error in chatgpting response");
+				ButtonFrame.processing = false;
+			}
 		}
 		return "errorincalculating chance";
 	}
@@ -58,11 +59,9 @@ public class Chance {
 		HashMap<String, Double> map = new HashMap<String, Double>();
 		
 		Double wC = compareWords(arr, WeatherKeys, true) + compareWords(arr, MiscKeys, false) + compareWords(arr, MiscKeysAbb, false);
-		Double cC = compareWords(arr, CalcKeys, true) + compareWords(arr, MiscKeys2, false) + compareWords(arr, MiscKeysAbb, false);
 		Double tC = compareWords(arr, TimeKeys, true) + compareWords(arr, MiscKeys2, false) + compareWords(arr, MiscKeysAbb, false); 
 		
 		map.put("weather", wC);
-		map.put("calc", cC);
 		map.put("time", tC);
 		
 		return map;

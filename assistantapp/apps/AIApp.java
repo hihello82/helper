@@ -40,7 +40,7 @@ public class AIApp {
 	        }
 	        br2.close();
 	
-	        return extractMessageFromJSONResponse(response.toString());
+	        return formatResponse(extractMessageFromJSONResponse(response.toString()));
 
     } catch (IOException e) {
         throw new RuntimeException(e);
@@ -50,9 +50,14 @@ public class AIApp {
 	public static String extractMessageFromJSONResponse(String response) {
 		
 	    int start = response.indexOf("content")+ 11;
-	    int end = response.indexOf("\"", start);
+	    int end = response.indexOf("}", start) - 7;// TODO: finish formatting
 	    return response.substring(start, end);
 		
+	}
+	
+	public static String formatResponse(String response) {
+		response = response.replace("\\", "");
+		return response;
 	}
 	
 	public static String Chat(String command){

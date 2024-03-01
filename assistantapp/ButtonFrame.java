@@ -8,12 +8,15 @@ public class ButtonFrame extends JFrame implements ActionListener{
 		JButton button;
 		JTextField textField;
 		static JTextArea displayTextField;
-		Container c = this.getContentPane();		
+		Container c = this.getContentPane();
+		public static boolean processing = false;
 		
 		String command = "";
 	
 		ButtonFrame(){
 		
+			c.setLayout(null);
+						
 			button = new JButton(); 
 			
 			button.setBounds(400, 270, 50, 50); // gives it some size
@@ -25,9 +28,6 @@ public class ButtonFrame extends JFrame implements ActionListener{
 			button.setVerticalTextPosition(JButton.CENTER);
 			
 			button.addActionListener(this); // yeah i'm him
-			
-			c.setLayout(null);
-
 			
 			textField = new RoundTextField(15);
 			textField.setBounds(50, 275, 350, 40);
@@ -44,21 +44,33 @@ public class ButtonFrame extends JFrame implements ActionListener{
 			this.setVisible(true); // makes the frame visible
 			this.add(button); // adds button to the frame
 			this.add(textField); // adds user input textfield to frame
-			this.add(c);
+			
+			c.setVisible(true);
 			c.add(displayTextField); // adds the responsedisplay to frame
-
+			displayTextField.setText(" ");
 	}
 		
 		public static void displayResponse(String response) {
 			displayTextField.setText(response);
 		}
 
+		void keyReleased(KeyEvent e) {
+			if(e.getKeyCode() == KeyEvent.VK_ENTER && !processing) {
+				giveCommand();
+			}
+		}
+		
 		@Override
-		public void actionPerformed(ActionEvent e) { // TODO: enter = buttonclicked
-			if(e.getSource()==button) {
-				command = textField.getText();
-				textField.setText("");
-				Chance.calcChance(command);
+		public void actionPerformed(ActionEvent e) {
+			if(e.getSource()==button && !processing) {
+				giveCommand();
 			}			
+		}
+		
+		void giveCommand() {
+			processing = true;
+			command = textField.getText();
+			textField.setText("");
+			Chance.calcChance(command);
 		}
 }
