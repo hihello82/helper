@@ -1,8 +1,5 @@
 package assistantapp;
 import javax.swing.*;
-import java.awt.event.*;
-import java.awt.*;
-import javax.swing.*;
 
 public class Main extends JFrame {
 
@@ -12,7 +9,7 @@ public class Main extends JFrame {
 	public static void main(String[] args) {
 			
 		ButtonFrame frame = new ButtonFrame(); 
-		// this implements the other class in your project NOT some random shit dumbass
+		// this implements the other class in the project
 		// by calling this it makes a frame according to the frame i made in the other class 
 	}	
 }

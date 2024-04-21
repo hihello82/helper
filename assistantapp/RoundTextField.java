@@ -6,7 +6,7 @@ import java.awt.geom.RoundRectangle2D;
 
 import javax.swing.JTextField;
 
-public class RoundTextField extends JTextField {
+public class RoundTextField extends JTextField { // this whole class is just for beautification
 
 	private Shape shape;
 	
