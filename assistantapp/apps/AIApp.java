@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 public class AIApp {
 
-	public static String chatGPT(String command) throws IOException {
+	public static String chat(String command) throws IOException {
 		
 		File file = new File("/Users/ben/eclipse-workspace/assistantapp/GPTkey2.txt");
 		BufferedReader br = new BufferedReader(new FileReader (file));
@@ -21,7 +21,6 @@ public class AIApp {
 	        connection.setRequestProperty("Authorization", "Bearer " + key);
 	        connection.setRequestProperty("Content-Type", "application/json");
 	
-	        // The request body
 	        String body = "{\"model\": \"" + model + "\", \"messages\": [{\"role\": \"user\", \"content\": \"" + command + "\"}]}";
 	        connection.setDoOutput(true);
 	        OutputStreamWriter writer = new OutputStreamWriter(connection.getOutputStream());
@@ -29,7 +28,6 @@ public class AIApp {
 	        writer.flush();
 	        writer.close();
 	
-	        // Response from ChatGPT
 	        BufferedReader br2 = new BufferedReader(new InputStreamReader(connection.getInputStream()));
 	        String line;
 	
@@ -39,33 +37,21 @@ public class AIApp {
 	            response.append(line);
 	        }
 	        br2.close();
-	
-	        return formatResponse(extractMessageFromJSONResponse(response.toString()));
-
+	        return formatResponse(extract(response.toString()));
     } catch (IOException e) {
         throw new RuntimeException(e);
     }
 }
 	
-	public static String extractMessageFromJSONResponse(String response) {
-		
+	public static String extract(String response) {
 	    int start = response.indexOf("content")+ 11;
 	    int end = response.indexOf("}", start) - 7;// TODO: finish formatting
 	    return response.substring(start, end);
-		
 	}
 	
-	public static String formatResponse(String response) {
-		response = response.replace("\\", "");
+	public static String formatResponse(String response) {		
+		response = response.replace("\\n", "\n");
+		response = response.replace("\\", " ");
 		return response;
 	}
-	
-	public static String Chat(String command){
-		try {
-			return (chatGPT(command));
-		} catch (IOException e) {
-			return "error";
-		}
-	}
-
 }

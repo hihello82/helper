@@ -35,6 +35,8 @@ public class ButtonFrame extends JFrame implements ActionListener{
 			
 			scroll.setBounds(50, 25, 400, 225);
 			displayTextField.setFocusable(false);
+			displayTextField.setLineWrap(true);
+			displayTextField.setWrapStyleWord(true);
 			
 			this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // the X button works
 			this.setLayout(null);
@@ -69,11 +71,12 @@ public class ButtonFrame extends JFrame implements ActionListener{
 		void giveCommand() {
 			processing = true;
 			command = textField.getText();
-			textField.setText("");
+			
 			
 			if(textField.getText().equals("")) {
 				displayTextField.setText("You must enter a question!");
 				processing = false;
 			} else Chance.calcChance(command);
+			textField.setText("");
 		}
 }

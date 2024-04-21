@@ -4,13 +4,13 @@ import java.io.IOException;
 import java.util.*;
 
 import assistantapp.apps.AIApp;
+import assistantapp.apps.TimeApp;
 
 public class Chance {
 	
-	static String[] WeatherKeys = new String[] {"weather", "cold", "hot"};
-	static String[] TimeKeys = new String[] {"time"};
+	static String[] TimeKeys = new String[] {"time", "right", "now"};
+	static String[] DateKeys = new String[] {"date", "today", "day"};
 	static String[] MiscKeys2 = new String[] {"what", "is", "in", "the"}; 
-	static String[] MiscKeys = new String[] {"town", "cit", "what", "in", "the", "is"};
 	static String[] MiscKeysAbb = new String[] {"what's", "whats"};
 	
 	/*
@@ -27,15 +27,15 @@ public class Chance {
 	public static String calcChance(String command){
 		HashMap<String, Double> map = calcChance(breakUp(command));
 
-		if (map.get("weather") >= 1.04) {
-			ButtonFrame.displayResponse("you're probably trying to get the weather");
+		if (map.get("time") >= 1.04) {
+			ButtonFrame.displayResponse(TimeApp.getTime());
 			ButtonFrame.processing = false;
-		} else if (map.get("time") >= 1.04) {
-			ButtonFrame.displayResponse("you're probably trying to get the time");
+		} else if (map.get("date") >= 1.04){
+			ButtonFrame.displayResponse(TimeApp.getDate());
 			ButtonFrame.processing = false;
 		} else {
 			try {
-				ButtonFrame.displayResponse(AIApp.chatGPT(command));
+				ButtonFrame.displayResponse(AIApp.chat(command));
 				ButtonFrame.processing = false;
 			} catch (IOException e){
 				ButtonFrame.displayResponse("error in chatgpting response");
@@ -58,11 +58,11 @@ public class Chance {
 
 		HashMap<String, Double> map = new HashMap<String, Double>();
 		
-		Double wC = compareWords(arr, WeatherKeys, true) + compareWords(arr, MiscKeys, false) + compareWords(arr, MiscKeysAbb, false);
 		Double tC = compareWords(arr, TimeKeys, true) + compareWords(arr, MiscKeys2, false) + compareWords(arr, MiscKeysAbb, false); 
+		Double dC = compareWords(arr, DateKeys, true) + compareWords(arr, MiscKeys2, false) + compareWords(arr, MiscKeysAbb, false);
 		
-		map.put("weather", wC);
 		map.put("time", tC);
+		map.put("date", dC);
 		
 		return map;
 	}
